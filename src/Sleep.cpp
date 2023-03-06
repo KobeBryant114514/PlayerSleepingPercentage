@@ -14,7 +14,13 @@ static ScheduleTask SleepTask;
 
 bool ifSleep() {
     float sleepNum = sleepList.size();
-    float allNum = Global<Level>->getActivePlayerCount();
+    float allNum = 0;
+    Global<Level>->forEachPlayer([&allNum](Player& player)->bool {
+        if (player.getDimensionId() == 0) {
+            allNum = allNum + 1;
+        }
+        return true;
+    });
     auto needNum = (int)ceil(Settings::PlayerSleepingPercentage*allNum/100);
     if (sleepNum >= needNum) {
         auto nmsg = Settings::actionbar2;
