@@ -16,7 +16,7 @@ bool ifSleep() {
     float sleepNum = sleepList.size();
     float allNum = 0;
     Global<Level>->forEachPlayer([&allNum](Player& player)->bool {
-        if (player.getDimensionId() == 0) {
+        if (player.getDimensionId() == 0 && player.isSimulatedPlayer() == false) {
             allNum = allNum + 1;
         }
         return true;
